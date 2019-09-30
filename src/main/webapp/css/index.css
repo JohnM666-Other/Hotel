@@ -1,0 +1,149 @@
+body {
+    background: url('../res/noise.png') repeat #333333;
+    background-size: 100px 100px;
+    line-height: 1!important;
+}
+
+h1 {
+    display: block;
+}
+
+h3 {
+    text-shadow: 2px 2px 2px black;
+}
+
+a {
+    color: aqua!important;
+}
+
+a:visited {
+    color: darkcyan!important;
+}
+
+.container {
+    margin: 0 10%;
+}
+
+.rounded-p {
+    border-radius: 5px;
+}
+
+.rounded-p-top {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.hover-glow {
+    box-shadow: 0 0 0;
+    transition-duration: 100ms;
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 10px aqua;
+    transition-duration: 100ms;
+}
+
+.light-background {
+    background-color: #666666;
+}
+
+.hotel {
+    margin: 10px 0;
+}
+
+.hotel-head {
+    border-bottom: solid lightgray 2px;
+    width: 100%;
+    display: flex;
+}
+
+.hotel-head h3 {
+    margin: 0;
+}
+
+.hotel-img-container {
+    display: flex;
+    height: 100px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    justify-content: center;
+    margin: 0;
+}
+
+.hotel-img {
+    width: 100px;
+}
+
+.img-invert {
+    filter: invert(100%);
+}
+
+.hotel-body {
+    padding: 10px 0 0 0;
+}
+
+.stars {
+    font-size: 1.5em;
+}
+
+.hotel-details {
+    margin: 0 10px;
+}
+
+.star {
+    display: inline-block;
+    background: url('../res/star.png') no-repeat;
+    background-size: 20px 20px;
+    min-width: 20px;
+    min-height: 20px;
+    margin: 2px 0 0 0;
+    padding: 0;
+    filter: drop-shadow(1px 1px 2px #222);
+}
+
+.hotel-details {
+    padding: 5px;
+    justify-content: space-between;
+}
+
+.hotel-avg-score {
+    margin-left: auto;
+    height: 100%;
+    vert-align: middle;
+    font-size: 5em;
+}
+
+.score-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px aqua solid;
+    text-align: center;
+    vertical-align: middle;
+    margin: -10px 0;
+    padding: 10px;
+    background-color: royalblue;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
+
+.color-green {
+    color: green;
+}
+
+.color-yellow {
+    color: yellow;
+}
+
+.color-red {
+    color: red;
+}
+
+.feedback-list > div:nth-child(odd) {
+    background-color: #333333;
+}
+
+.feedback-list > div:nth-child(even) {
+    background-color: #666666;
+}

@@ -1,0 +1,18 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="JohnM" id="fk-feedbacks">
+        <addForeignKeyConstraint baseTableName="feedbacks"
+                                 baseColumnNames="hotel_id"
+                                 constraintName="fk_feedback_hotel"
+                                 referencedTableName="hotels"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="feedbacks"
+                                 baseColumnNames="customer_id"
+                                 constraintName="fk_feedback_customer"
+                                 referencedTableName="customers"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
