@@ -54,9 +54,11 @@ public class FeedbackController {
     @GetMapping("/search")
     public List<Feedback> searchFeedbacks(
             @RequestParam Long hotelId,
+            @RequestParam(required = false) Integer minAge,
+            @RequestParam(required = false) Integer maxAge,
             @RequestParam(required = false) FeedbackType type,
             @RequestParam(required = false) FeedbackSortType sort) {
         Hotel hotel = hotelService.getById(hotelId);
-        return feedbackService.searchHotelFeedbacks(hotel, null, null, type, sort);
+        return feedbackService.searchHotelFeedbacks(hotel, minAge, maxAge, type, sort);
     }
 }

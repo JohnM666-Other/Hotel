@@ -72,9 +72,6 @@ public class FeedbackService {
         Integer rMaxAge = maxAge == null ? 1000 : maxAge;
         Integer rMinScore = 0, rMaxScore = 0;
 
-        Period minAgePeriod = Period.ofYears(rMinAge);
-        Period maxAgePeriod = Period.ofYears(rMaxAge);
-
         if(type == null) {
             rMinScore = 0;
             rMaxScore = 100;
@@ -98,6 +95,9 @@ public class FeedbackService {
             rSort = new Sort(Sort.Direction.DESC, "visitDate");
         }
 
-        return feedbackRepository.searchFeedbacks(hotel, rMinScore, rMaxScore, rSort);
+        Double minTime = (double)rMinAge * 365;
+        Double maxTime = (double)rMaxAge * 365;
+
+        return feedbackRepository.searchFeedbacks(hotel, rMinScore, rMaxScore, minTime, maxTime, rSort);
     }
 }
