@@ -8,6 +8,8 @@ import com.hotel.entities.Feedback;
 import com.hotel.entities.Hotel;
 import com.hotel.repositories.FeedbackRepository;
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -67,10 +69,10 @@ public class FeedbackService {
         return viewModels;
     }
 
-    public List<Feedback> searchHotelFeedbacks(Hotel hotel, Integer minAge, Integer maxAge, FeedbackType type, FeedbackSortType sort) {
-        Integer rMinAge = minAge == null ? 0 : minAge;
-        Integer rMaxAge = maxAge == null ? 1000 : maxAge;
-        Integer rMinScore = 0, rMaxScore = 0;
+    public List<Feedback> searchHotelFeedbacks(Hotel hotel, Integer minAge, Integer maxAge, FeedbackType type, FeedbackSortType sort, Integer pageIndex, Integer pageSize) {
+        int rMinAge = minAge == null ? 0 : minAge;
+        int rMaxAge = maxAge == null ? 1000 : maxAge;
+        int rMinScore = 0, rMaxScore = 0;
 
         if(type == null) {
             rMinScore = 0;
@@ -98,6 +100,12 @@ public class FeedbackService {
         Double minTime = (double)rMinAge * 365;
         Double maxTime = (double)rMaxAge * 365;
 
-        return feedbackRepository.searchFeedbacks(hotel, rMinScore, rMaxScore, minTime, maxTime, rSort);
+        Pageable pageable = null;
+
+        if (pageIndex != null && pageSize != null) {
+           pageable = rSort == null ? PageRequest.of(pageIndex, pageSize) : PageRequest.of(pageIndex, pageSize, rSort);
+        }
+
+        return feedbackRepository.searchFeedbacks(hotel, rMinScore, rMaxScore, minTime, maxTime, pageable);
     }
 }

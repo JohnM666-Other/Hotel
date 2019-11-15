@@ -4,6 +4,7 @@ import com.hotel.dto.HotelViewModel;
 import com.hotel.entities.Feedback;
 import com.hotel.entities.Hotel;
 import com.hotel.repositories.HotelRepository;
+import com.hotel.repositories.HotelSearchManager;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +16,11 @@ import java.util.List;
 public class HotelService {
 
     private HotelRepository hotelRepository;
+    private HotelSearchManager hotelSearchManager;
 
-    public HotelService(HotelRepository hotelRepository) {
+    public HotelService(HotelRepository hotelRepository, HotelSearchManager hotelSearchManager) {
         this.hotelRepository = hotelRepository;
+        this.hotelSearchManager = hotelSearchManager;
     }
 
     public List<Hotel> getAll() {
@@ -94,5 +97,9 @@ public class HotelService {
         }
 
         return hotels;
+    }
+
+    public List<Hotel> searchHotels(String text) {
+        return hotelSearchManager.searchHotels(text);
     }
 }

@@ -57,8 +57,10 @@ public class FeedbackController {
             @RequestParam(required = false) Integer minAge,
             @RequestParam(required = false) Integer maxAge,
             @RequestParam(required = false) FeedbackType type,
-            @RequestParam(required = false) FeedbackSortType sort) {
+            @RequestParam(required = false) FeedbackSortType sort,
+            @RequestParam(required = false) Integer pageIndex,
+            @RequestParam(required = false) Integer pageSize) {
         Hotel hotel = hotelService.getById(hotelId);
-        return feedbackService.searchHotelFeedbacks(hotel, minAge, maxAge, type, sort);
+        return feedbackService.searchHotelFeedbacks(hotel, minAge, maxAge, type, sort, pageIndex, pageSize);
     }
 }

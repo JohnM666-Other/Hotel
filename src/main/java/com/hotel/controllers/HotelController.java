@@ -44,4 +44,9 @@ public class HotelController {
     public void deleteById(@PathVariable("id") Long id) {
         hotelService.deleteById(id);
     }
+
+    @GetMapping("/search")
+    public List<Hotel> search(@RequestParam(value = "text", required = true) String text) {
+        return hotelService.searchHotels(text);
+    }
 }

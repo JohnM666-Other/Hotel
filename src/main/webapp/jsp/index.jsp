@@ -15,6 +15,16 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <form class="form-inline mx-auto my-2 my-lg-0">
+                <div class="col-10">
+                    <input class="form-control mr-sm-2 w-100" type="search" placeholder="Search..." aria-label="Search">
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+                </div>
+            </form>
+        </nav>
         <h1 class="text-light text-center text">Hotels</h1>
         <div class="container">
             <c:forEach items="${hotels}" var="item">

@@ -1,6 +1,7 @@
 package com.hotel.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "hotels")
+@Indexed
 public class Hotel {
 
     @Id
@@ -47,10 +49,10 @@ public class Hotel {
 
     }
 
-    public Hotel(String name, String description, String county, String city, String url, Integer score) {
+    public Hotel(String name, String description, String country, String city, String url, Integer score) {
         this.name = name;
         this.description = description;
-        this.country = county;
+        this.country = country;
         this.city = city;
         this.url = url;
         this.score = score;
