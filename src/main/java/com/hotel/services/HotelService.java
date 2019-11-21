@@ -100,6 +100,6 @@ public class HotelService {
     }
 
     public List<Hotel> searchHotels(String text) {
-        return hotelSearchManager.searchHotels(text);
+        return new ArrayList<Hotel>();
     }
 }

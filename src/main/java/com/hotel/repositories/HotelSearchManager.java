@@ -18,7 +18,7 @@ import java.util.List;
 @Repository
 public class HotelSearchManager {
 
-    @PersistenceContext
+    /*@PersistenceContext
     private EntityManager entityManager;
 
     @PostConstruct
@@ -51,5 +51,5 @@ public class HotelSearchManager {
                 .buildQueryBuilder()
                 .forEntity(Hotel.class)
                 .get();
-    }
+    }*/
 }

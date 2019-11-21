@@ -13,9 +13,9 @@
                 Long description of Hotel 1
                 Long description of Hotel 1
                 Long description of Hotel 1</column>
-            <column name="country">Hell</column>
-            <column name="city">The 1-th circle</column>
-            <column name="url">https://hell.com/1</column>
+            <column name="country">Country</column>
+            <column name="city">The 1-th city</column>
+            <column name="url">https://hotel.com/1</column>
             <column name="score">1</column>
         </insert>
         <insert tableName="hotels">
@@ -27,9 +27,9 @@
                 Long description of Hotel 2
                 Long description of Hotel 2
                 Long description of Hotel 2</column>
-            <column name="country">Hell</column>
-            <column name="city">The 2-th circle</column>
-            <column name="url">https://hell.com/2</column>
+            <column name="country">Country</column>
+            <column name="city">The 2-th city</column>
+            <column name="url">https://hotel.com/2</column>
             <column name="score">2</column>
         </insert>
         <insert tableName="hotels">
@@ -41,9 +41,9 @@
                 Long description of Hotel 3
                 Long description of Hotel 3
                 Long description of Hotel 3</column>
-            <column name="country">Hell</column>
-            <column name="city">The 3-th circle</column>
-            <column name="url">https://hell.com/3</column>
+            <column name="country">Country</column>
+            <column name="city">The 3-th city</column>
+            <column name="url">https://hotel.com/3</column>
             <column name="score">3</column>
         </insert>
         <insert tableName="hotels">
@@ -55,9 +55,9 @@
                 Long description of Hotel 4
                 Long description of Hotel 4
                 Long description of Hotel 4</column>
-            <column name="country">Hell</column>
-            <column name="city">The 4-th circle</column>
-            <column name="url">https://hell.com/4</column>
+            <column name="country">Country</column>
+            <column name="city">The 4-th city</column>
+            <column name="url">https://hotel.com/4</column>
             <column name="score">4</column>
         </insert>
         <insert tableName="hotels">
@@ -69,9 +69,9 @@
                 Long description of Hotel 5
                 Long description of Hotel 5
                 Long description of Hotel 5</column>
-            <column name="country">Hell</column>
-            <column name="city">The 5-th circle</column>
-            <column name="url">https://hell.com/5</column>
+            <column name="country">Country</column>
+            <column name="city">The 5-th city</column>
+            <column name="url">https://hotel.com/5</column>
             <column name="score">5</column>
         </insert>
         <insert tableName="hotels">
@@ -83,9 +83,9 @@
                 Long description of Hotel 6
                 Long description of Hotel 6
                 Long description of Hotel 6</column>
-            <column name="country">Hell</column>
-            <column name="city">The 6-th circle</column>
-            <column name="url">https://hell.com/6</column>
+            <column name="country">Country</column>
+            <column name="city">The 6-th city</column>
+            <column name="url">https://hotel.com/6</column>
             <column name="score">6</column>
         </insert>
         <insert tableName="hotels">
@@ -97,9 +97,9 @@
                 Long description of Hotel 7
                 Long description of Hotel 7
                 Long description of Hotel 7</column>
-            <column name="country">Hell</column>
-            <column name="city">The 7-th circle</column>
-            <column name="url">https://hell.com/7</column>
+            <column name="country">Country</column>
+            <column name="city">The 7-th city</column>
+            <column name="url">https://hotel.com/7</column>
             <column name="score">7</column>
         </insert>
         <insert tableName="hotels">
@@ -111,9 +111,9 @@
                 Long description of Hotel 8
                 Long description of Hotel 8
                 Long description of Hotel 8</column>
-            <column name="country">Hell</column>
-            <column name="city">The 8-th circle</column>
-            <column name="url">https://hell.com/8</column>
+            <column name="country">Country</column>
+            <column name="city">The 8-th city</column>
+            <column name="url">https://hotel.com/8</column>
             <column name="score">8</column>
         </insert>
         <insert tableName="hotels">
@@ -125,9 +125,9 @@
                 Long description of Hotel 9
                 Long description of Hotel 9
                 Long description of Hotel 9</column>
-            <column name="country">Hell</column>
-            <column name="city">The 9-th circle</column>
-            <column name="url">https://hell.com/9</column>
+            <column name="country">Country</column>
+            <column name="city">The 9-th city</column>
+            <column name="url">https://hotel.com/9</column>
             <column name="score">9</column>
         </insert>
     </changeSet>
