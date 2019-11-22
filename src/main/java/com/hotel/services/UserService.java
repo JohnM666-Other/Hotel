@@ -1,6 +1,7 @@
 package com.hotel.services;
 
 import com.hotel.entities.CustomUser;
+import com.hotel.entities.Role;
 import com.hotel.entities.UserEntity;
 import com.hotel.repositories.RoleRepository;
 import com.hotel.repositories.UserRepository;
@@ -69,7 +70,10 @@ public class UserService implements UserDetailsService {
 
     public List<GrantedAuthority> getRoles(UserEntity user) {
         List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+
+        for(Role role : user.getRoles())
+            roles.add(new SimpleGrantedAuthority(role.getRole()));
+
         return roles;
     }
 

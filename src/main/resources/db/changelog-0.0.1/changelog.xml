@@ -6,6 +6,6 @@
     <include file="table-hotels.xml" relativeToChangelogFile="true"/>
     <include file="table-users.xml" relativeToChangelogFile="true"/>
     <include file="table-feedbacks.xml" relativeToChangelogFile="true"/>
-    <include file="fk-feedbacks.xml" relativeToChangelogFile="true"/>
     <include file="auth-tables.xml" relativeToChangelogFile="true"/>
+    <include file="fk-feedbacks.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -55,10 +55,10 @@
                                 </div>
                                 <c:choose>
                                     <c:when test="${item.score>3}">
-                                        <h3 class="mx-2 d-inline-block float-right color-green">${item.score}</h3>
+                                        <h3 class="ml-auto mr-2 d-inline-block float-right color-green">${item.score}</h3>
                                     </c:when>
                                     <c:otherwise>
-                                        <h3 class="mx-2 d-inline-block float-right color-red">${item.score}</h3>
+                                        <h3 class="ml-auto mr-2 d-inline-block float-right color-red">${item.score}</h3>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
@@ -66,6 +66,30 @@
                     </c:when>
                     <c:otherwise>
                         <div class="text-light m-2 p-2 text-center">No comments yet</div>
+                    </c:otherwise>
+                </c:choose>
+                <c:choose>
+                    <c:when test="${not empty username}">
+                        <form class="p-4 border" method="POST" action="/api/feedbacks/send">
+                            <div class="form-group">
+                                <label class="text-light">Score</label>
+                                <input type="text" class="form-control" id="score" name="score"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-light">Message</label>
+                                <textarea class="form-control" id="message" name="message"></textarea>
+                            </div>
+                            <div class="d-none">
+                                <input name="hotel" value="${hotel.id}"/>
+                                <input name="username" value="${username}"/>
+                            </div>
+                            <div class="form-group">
+                                <button class="w-100 btn btn-primary" type="submit">Send</button>
+                            </div>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="text-light m-2 p-2 text-center">Please login to write a comment</div>
                     </c:otherwise>
                 </c:choose>
             </div>

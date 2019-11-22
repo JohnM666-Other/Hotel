@@ -1,6 +1,8 @@
 package com.hotel.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Objects;
@@ -29,6 +31,8 @@ public class Feedback {
 
     @Column
     @NotNull
+    @Min(1)
+    @Max(5)
     private Integer score;
 
     @Column

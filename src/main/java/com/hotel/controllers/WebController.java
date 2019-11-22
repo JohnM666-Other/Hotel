@@ -3,6 +3,7 @@ package com.hotel.controllers;
 import com.hotel.dto.FeedbackSortType;
 import com.hotel.dto.FeedbackType;
 import com.hotel.entities.CustomUser;
+import com.hotel.entities.Hotel;
 import com.hotel.entities.UserEntity;
 import com.hotel.repositories.HotelRepository;
 import com.hotel.services.FeedbackService;
@@ -54,6 +55,10 @@ public class WebController {
                         @RequestParam(required = false) FeedbackSortType sort) {
         model.addAttribute("hotel", hotelService.getHotelInfo(id));
         model.addAttribute("feedbacks", feedbackService.getHotelFeedbacks(hotelService.getById(id)));
+
+        if(!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
+            model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
+
         return "hotel";
     }
 
@@ -72,5 +77,13 @@ public class WebController {
         model.addAttribute("birthdate", user.getBirthDate());
         model.addAttribute("sex", user.getSex());
         return "profile";
+    }
+
+    @GetMapping("/hotel/edit/{id}")
+    @Secured("ROLE_ADMIN")
+    public String editHotel(Model model, @PathVariable("id") Long id) {
+        Hotel hotel = hotelService.getById(id);
+        model.addAttribute("hotel", hotel);
+        return "hotel-edit";
     }
 }

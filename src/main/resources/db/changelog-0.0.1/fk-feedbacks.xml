@@ -14,5 +14,10 @@
                                  constraintName="fk_feedback_customer"
                                  referencedTableName="users"
                                  referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="roles"
+                                 baseColumnNames="user"
+                                 constraintName="fk_role_user"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>

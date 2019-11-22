@@ -21,6 +21,10 @@ public class Role {
     @JoinColumn(name = "user")
     private UserEntity user;
 
+    public Role() {
+
+    }
+
     public Role(String role, UserEntity user) {
         this.role = role;
         this.user = user;

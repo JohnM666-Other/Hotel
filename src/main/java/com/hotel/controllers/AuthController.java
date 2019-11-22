@@ -2,6 +2,8 @@ package com.hotel.controllers;
 
 import com.hotel.entities.UserEntity;
 import com.hotel.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +19,7 @@ import java.util.List;
 public class AuthController {
 
     public static final String ROOT = "/api/user";
+    public static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     private final UserService userService;
 
@@ -25,7 +28,6 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    @Secured("ROLE_USER")
     public void signup(HttpServletResponse http,
                      @RequestParam String email,
                      @RequestParam String firstname,
@@ -33,7 +35,9 @@ public class AuthController {
                      @RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date birthdate,
                      @RequestParam Character sex,
                      @RequestParam String password) throws IOException {
-        userService.create(new UserEntity(firstname, lastname, email, birthdate, sex, new BCryptPasswordEncoder().encode(password)));
+        UserEntity user = new UserEntity(firstname, lastname, email, birthdate, sex, new BCryptPasswordEncoder().encode(password));
+        userService.create(user);
+        logger.info("Sign up: {}", user);
         http.sendRedirect("/hotels");
     }
 
@@ -41,6 +45,7 @@ public class AuthController {
     @Secured("ROLE_ADMIN")
     public void delete(@RequestParam String email) {
         userService.deleteByEmail(email);
+        logger.info("Removed user with email {}", email);
     }
 
     @PostMapping("/profile-edit")
@@ -53,33 +58,39 @@ public class AuthController {
                          @RequestParam Character sex,
                          @RequestParam String password) throws IOException {
         userService.update(new UserEntity(firstname, lastname, email, birthdate, sex, new BCryptPasswordEncoder().encode(password)));
+        logger.info("Edit user with email {}", email);
         http.sendRedirect("/hotels");
     }
 
     @GetMapping
     @Secured("ROLE_ADMIN")
     public List<UserEntity> getAll() {
+        logger.info("Get all users");
         return userService.getAll();
     }
 
     @GetMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public UserEntity getById(@PathVariable("id") Long id) {
+        logger.info("Get user by id {}", id);
         return userService.getById(id);
     }
 
     @PostMapping
     public UserEntity create(@RequestBody UserEntity userEntity) {
+        logger.info("Create user {}", userEntity);
         return userService.create(userEntity);
     }
 
     @PutMapping
     public UserEntity update(@RequestBody UserEntity userEntity) {
+        logger.info("Update user {}", userEntity);
         return userService.update(userEntity);
     }
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable("id") Long id) {
         userService.deleteById(id);
+        logger.info("deleted user with id {}", id);
     }
 }

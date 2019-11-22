@@ -44,6 +44,10 @@ public class UserEntity {
     @JsonIgnore
     public List<Feedback> feedbacks;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIgnore
+    public List<Role> roles;
+
     public UserEntity() {
 
     }
@@ -111,6 +115,10 @@ public class UserEntity {
 
     public String getPassword() {
         return this.password;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 
     @Override
