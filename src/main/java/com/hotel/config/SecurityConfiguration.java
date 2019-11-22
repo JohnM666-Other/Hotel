@@ -28,6 +28,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    public static void main(String[] args) {
+        System.out.println(new BCryptPasswordEncoder().encode("1"));
+    }
+
     @Override
     @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -36,8 +40,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated().and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.NEVER);
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/login*").permitAll()
+                .anyRequest().permitAll()
+                .and()
+                .formLogin().defaultSuccessUrl("/hotels")
+                .and()
+                .logout().logoutUrl("/logout").deleteCookies("JSESSIONID");
     }
 
     @Override

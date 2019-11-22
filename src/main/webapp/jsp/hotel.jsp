@@ -46,8 +46,8 @@
                             <div class="m-0 p-2 d-flex flex-row align-items-center">
                                 <div class="d-flex flex-column">
                                     <h6 class="text-light">
-                                            ${item.customer.firstname}
-                                            ${item.customer.secondname}
+                                            ${item.userEntity.firstname}
+                                            ${item.userEntity.secondname}
                                         (Age: ${item.customerAge})
                                         <fmt:formatDate value="${item.visitDate}" pattern="yyyy-MM-dd"/>
                                     </h6>

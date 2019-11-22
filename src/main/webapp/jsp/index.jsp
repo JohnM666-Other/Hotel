@@ -16,6 +16,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="mr-auto"></div>
             <form class="form-inline mx-auto my-2 my-lg-0">
                 <div class="col-10">
                     <input class="form-control mr-sm-2 w-100" type="search" placeholder="Search..." aria-label="Search">
@@ -24,6 +25,23 @@
                     <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
                 </div>
             </form>
+            <div class="ml-auto">
+                <c:choose>
+                    <c:when test="${not empty username}">
+                        <div class="dropdown">
+                            <a href="#"data-toggle="dropdown">${username}</a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="/profile">Profile</a>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+                            </div>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="mx-2" href="/login">Login</a>
+                        <a href="/signup">Sign up</a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
         </nav>
         <h1 class="text-light text-center text">Hotels</h1>
         <div class="container">

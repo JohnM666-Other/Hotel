@@ -1,10 +1,10 @@
 package com.hotel.entities;
 
-import org.springframework.security.core.GrantedAuthority;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,53 +12,117 @@ import java.util.Objects;
 public class UserEntity {
 
     @Id
-    @Column
     @NotNull
+    @Column
     @SequenceGenerator(name = "seq_users", sequenceName = "seq_users", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_users")
     private Long id;
 
     @Column
-    private String username;
+    @NotNull
+    private String firstname;
 
     @Column
+    @NotNull
+    private String secondname;
+
+    @Column
+    private String email;
+
+    @Column
+    private Date birthDate;
+
+    @Column
+    @NotNull
+    private Character sex;
+
+    @Column
+    @NotNull
     private String password;
 
-    @Transient
-    private List<GrantedAuthority> grantedAuthorityCollection = new ArrayList<>();
+    @OneToMany
+    @JsonIgnore
+    public List<Feedback> feedbacks;
 
     public UserEntity() {
 
     }
 
-    public UserEntity(String username, String password, List<GrantedAuthority> grantedAuthorityCollection) {
-        this.username = username;
+    public UserEntity(String firstname, String secondname, String email, Date birthDate, Character sex, String password) {
+        this.firstname = firstname;
+        this.secondname = secondname;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.sex = sex;
         this.password = password;
-        this.grantedAuthorityCollection = grantedAuthorityCollection;
     }
 
-    public String getUsername() {
-        return username;
+    public Long getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public String getPassword() {
-        return password;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getSecondname() {
+        return secondname;
+    }
+
+    public void setSecondname(String secondname) {
+        this.secondname = secondname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Character getSex() {
+        return sex;
+    }
+
+    public void setSex(Character sex) {
+        this.sex = sex;
+    }
+
+    public List<Feedback> getFeedbacks() {
+        return feedbacks;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public List<GrantedAuthority> getGrantedAuthorityCollection() {
-        return grantedAuthorityCollection;
+    public String getPassword() {
+        return this.password;
     }
 
-    public void setGrantedAuthorityCollection(List<GrantedAuthority> grantedAuthorityCollection) {
-        this.grantedAuthorityCollection = grantedAuthorityCollection;
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", secondname='" + secondname + '\'' +
+                ", email='" + email + '\'' +
+                ", birthDate=" + birthDate +
+                ", sex=" + sex +
+                '}';
     }
 
     @Override
@@ -66,26 +130,16 @@ public class UserEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity userEntity = (UserEntity) o;
-        return Objects.equals(username, userEntity.username) &&
-                Objects.equals(password, userEntity.password) &&
-                Objects.equals(grantedAuthorityCollection, userEntity.grantedAuthorityCollection);
+        return Objects.equals(id, userEntity.id) &&
+                Objects.equals(firstname, userEntity.firstname) &&
+                Objects.equals(secondname, userEntity.secondname) &&
+                Objects.equals(email, userEntity.email) &&
+                Objects.equals(birthDate, userEntity.birthDate) &&
+                Objects.equals(sex, userEntity.sex);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password, grantedAuthorityCollection);
-    }
-
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", grantedAuthorityCollection=" + grantedAuthorityCollection +
-                '}';
-    }
-
-    public Long getId() {
-        return id;
+        return Objects.hash(id, firstname, secondname, email, birthDate, sex);
     }
 }

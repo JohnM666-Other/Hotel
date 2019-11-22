@@ -20,8 +20,8 @@ public class Feedback {
     private Hotel hotel;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
     @Column
     @NotNull
@@ -38,9 +38,9 @@ public class Feedback {
 
     }
 
-    public Feedback(Hotel hotelId, Customer customerId, Date visitDate, Integer score, String text) {
+    public Feedback(Hotel hotelId, UserEntity userEntityId, Date visitDate, Integer score, String text) {
         this.hotel = hotelId;
-        this.customer = customerId;
+        this.user = userEntityId;
         this.visitDate = visitDate;
         this.score = score;
         this.text = text;
@@ -58,12 +58,12 @@ public class Feedback {
         this.hotel = hotel;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public UserEntity getUserEntity() {
+        return user;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUserEntity(UserEntity user) {
+        this.user = user;
     }
 
     public Date getVisitDate() {
@@ -95,7 +95,7 @@ public class Feedback {
         return "Feedback{" +
                 "id=" + id +
                 ", hotel=" + hotel +
-                ", customer=" + customer +
+                ", userEntity=" + user +
                 ", visitDate=" + visitDate +
                 ", score=" + score +
                 ", text='" + text + '\'' +
@@ -109,7 +109,7 @@ public class Feedback {
         Feedback feedback = (Feedback) o;
         return Objects.equals(id, feedback.id) &&
                 Objects.equals(hotel, feedback.hotel) &&
-                Objects.equals(customer, feedback.customer) &&
+                Objects.equals(user, feedback.user) &&
                 Objects.equals(visitDate, feedback.visitDate) &&
                 Objects.equals(score, feedback.score) &&
                 Objects.equals(text, feedback.text);
@@ -117,6 +117,6 @@ public class Feedback {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, hotel, customer, visitDate, score, text);
+        return Objects.hash(id, hotel, user, visitDate, score, text);
     }
 }

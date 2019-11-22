@@ -1,9 +1,9 @@
 package com.hotel;
 
-import com.hotel.controllers.CustomerController;
+import com.hotel.controllers.AuthController;
 import com.hotel.controllers.FeedbackController;
 import com.hotel.controllers.HotelController;
-import com.hotel.entities.Customer;
+import com.hotel.entities.UserEntity;
 import com.hotel.entities.Feedback;
 import com.hotel.entities.Hotel;
 import org.junit.Test;
@@ -30,14 +30,14 @@ public class FeedbackIntegrationTest {
     @Test
     public void feedbackTest() {
         Hotel hotel = new Hotel("Hotel", "---", "Country", "City", "Url", 10);
-        Customer customer = new Customer("First name", "Second name", "Email", new Date(), 'F');
+        UserEntity userEntity = new UserEntity("First name", "Second name", "Email", new Date(), 'F', "123");
 
         String prefix = "http://localhost:" + port + "/";
         String url = prefix + FeedbackController.ROOT;
 
         hotel = rest.postForEntity(prefix + HotelController.ROOT, hotel, Hotel.class).getBody();
-        customer = rest.postForEntity(prefix + CustomerController.ROOT, customer, Customer.class).getBody();
-        Feedback feedback = new Feedback(hotel, customer, new Date(), 10, "Text");
+        userEntity = rest.postForEntity(prefix + AuthController.ROOT, userEntity, UserEntity.class).getBody();
+        Feedback feedback = new Feedback(hotel, userEntity, new Date(), 10, "Text");
 
         {
             ResponseEntity<Feedback> feedbackRes = rest.postForEntity(url, feedback, Feedback.class);
@@ -57,6 +57,6 @@ public class FeedbackIntegrationTest {
         }
 
         rest.delete(prefix + HotelController.ROOT + "/" + hotel.getId());
-        rest.delete(prefix + CustomerController.ROOT + "/" + customer.getId());
+        rest.delete(prefix + AuthController.ROOT + "/" + userEntity.getId());
     }
 }

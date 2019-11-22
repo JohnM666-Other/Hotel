@@ -18,6 +18,7 @@ public class Role {
     private String role;
 
     @ManyToOne
+    @JoinColumn(name = "user")
     private UserEntity user;
 
     public Role(String role, UserEntity user) {

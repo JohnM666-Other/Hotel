@@ -4,45 +4,50 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <changeSet author="JohnM" id="insert-customers">
-        <insert tableName="customers">
+        <insert tableName="users">
             <column name="id">1</column>
             <column name="firstname">Donald</column>
             <column name="secondname">White</column>
             <column name="email">DonaldPWhite@gmail.com</column>
             <column name="birth_date">1941-6-14</column>
             <column name="sex">M</column>
+            <column name="password">$2a$10$QU2W1tdbscykgme2QR5jJednyv.wHj.WxQPiX88pHlm1amRyRziay</column>
         </insert>
-        <insert tableName="customers">
+        <insert tableName="users">
             <column name="id">2</column>
             <column name="firstname">Nicholas</column>
             <column name="secondname">Sheehan</column>
             <column name="email">NicholasASheehan@gmail.com</column>
             <column name="birth_date">1951-10-13</column>
             <column name="sex">M</column>
+            <column name="password">$2a$10$QU2W1tdbscykgme2QR5jJednyv.wHj.WxQPiX88pHlm1amRyRziay</column>
         </insert>
-        <insert tableName="customers">
+        <insert tableName="users">
             <column name="id">3</column>
             <column name="firstname">Debra</column>
             <column name="secondname">Scholl</column>
             <column name="email">DebraEScholl@gmail.com</column>
             <column name="birth_date">1997-10-7</column>
             <column name="sex">F</column>
+            <column name="password">$2a$10$QU2W1tdbscykgme2QR5jJednyv.wHj.WxQPiX88pHlm1amRyRziay</column>
         </insert>
-        <insert tableName="customers">
+        <insert tableName="users">
             <column name="id">4</column>
             <column name="firstname">Angela</column>
             <column name="secondname">Lane</column>
             <column name="email">AngelaPLane@gmail.com</column>
             <column name="birth_date">1970-7-8</column>
             <column name="sex">F</column>
+            <column name="password">$2a$10$QU2W1tdbscykgme2QR5jJednyv.wHj.WxQPiX88pHlm1amRyRziay</column>
         </insert>
-        <insert tableName="customers">
+        <insert tableName="users">
             <column name="id">5</column>
             <column name="firstname">Daniel</column>
             <column name="secondname">Arenas</column>
             <column name="email">DanielVArenas@gmail.com</column>
             <column name="birth_date">1962-6-26</column>
             <column name="sex">M</column>
+            <column name="password">$2a$10$QU2W1tdbscykgme2QR5jJednyv.wHj.WxQPiX88pHlm1amRyRziay</column>
         </insert>
     </changeSet>
 </databaseChangeLog>

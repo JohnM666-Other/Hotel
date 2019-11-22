@@ -1,6 +1,5 @@
 package com.hotel.services;
 
-import ch.qos.logback.core.util.TimeUtil;
 import com.hotel.dto.FeedbackSortType;
 import com.hotel.dto.FeedbackType;
 import com.hotel.dto.FeedbackViewModel;
@@ -12,9 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -53,12 +50,12 @@ public class FeedbackService {
         List<FeedbackViewModel> viewModels = new ArrayList<>();
 
         for(Feedback feedback : feedbacks) {
-            long millis = feedback.getVisitDate().getTime() - feedback.getCustomer().getBirthDate().getTime();
+            long millis = feedback.getVisitDate().getTime() - feedback.getUserEntity().getBirthDate().getTime();
 
             FeedbackViewModel viewModel = new FeedbackViewModel(
                 feedback.getId(),
                     feedback.getHotel(),
-                    feedback.getCustomer(),
+                    feedback.getUserEntity(),
                     feedback.getVisitDate(),
                     feedback.getScore(),
                     feedback.getText(),

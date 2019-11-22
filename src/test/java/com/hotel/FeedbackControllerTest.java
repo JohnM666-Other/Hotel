@@ -2,7 +2,7 @@ package com.hotel;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hotel.controllers.FeedbackController;
-import com.hotel.entities.Customer;
+import com.hotel.entities.UserEntity;
 import com.hotel.entities.Feedback;
 import com.hotel.entities.Hotel;
 import com.hotel.services.FeedbackService;
@@ -16,7 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -38,7 +37,7 @@ public class FeedbackControllerTest {
     private MockMvc mockMvc;
     private Feedback testFeedback = new Feedback(
             new Hotel("Hotel", "---", "Country", "City", "Url", 10),
-            new Customer("First name", "Second name", "Email", new Date(), 'M'),
+            new UserEntity("First name", "Second name", "Email", new Date(), 'M', "123"),
             new Date(), 10, "Some test");
     private Feedback[] testFeedbacks = new Feedback[] { testFeedback, testFeedback };
 

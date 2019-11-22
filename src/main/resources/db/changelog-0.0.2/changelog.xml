@@ -6,4 +6,5 @@
     <include file="insert-hotels.xml" relativeToChangelogFile="true"/>
     <include file="insert-customers.xml" relativeToChangelogFile="true"/>
     <include file="insert-feedbacks.xml" relativeToChangelogFile="true"/>
+    <include file="insert-roles.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

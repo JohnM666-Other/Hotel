@@ -10,9 +10,9 @@
                                  referencedTableName="hotels"
                                  referencedColumnNames="id"/>
         <addForeignKeyConstraint baseTableName="feedbacks"
-                                 baseColumnNames="customer_id"
+                                 baseColumnNames="user_id"
                                  constraintName="fk_feedback_customer"
-                                 referencedTableName="customers"
+                                 referencedTableName="users"
                                  referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>

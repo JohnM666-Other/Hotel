@@ -1,17 +1,15 @@
 package com.hotel;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hotel.controllers.CustomerController;
-import com.hotel.entities.Customer;
-import com.hotel.services.CustomerService;
+import com.hotel.controllers.AuthController;
+import com.hotel.entities.UserEntity;
+import com.hotel.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -26,18 +24,18 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-public class CustomerControllerTest {
+public class UserEntityControllerTest {
 
     @InjectMocks
-    private CustomerController customerController;
+    private AuthController customerController;
 
     @Mock
-    private CustomerService customerService;
+    private UserService customerService;
 
     private MockMvc mockMvc;
-    private Customer testCustomer = new Customer("First name", "Second name", "Email", new Date(), 'F');
-    private Customer[] testCustomers = new Customer[] {
-        testCustomer, testCustomer
+    private UserEntity testUserEntity = new UserEntity("First name", "Second name", "Email", new Date(), 'F', "123");
+    private UserEntity[] testUserEntities = new UserEntity[] {
+            testUserEntity, testUserEntity
     };
 
     @Before
@@ -46,45 +44,45 @@ public class CustomerControllerTest {
                 .setUseSuffixPatternMatch(false)
                 .build();
 
-        when(customerService.getAll()).thenReturn(Arrays.asList(testCustomers));
-        when(customerService.getById(0L)).thenReturn(testCustomer);
-        when(customerService.create(testCustomer)).thenReturn(testCustomer);
-        when(customerService.update(testCustomer)).thenReturn(testCustomer);
+        when(customerService.getAll()).thenReturn(Arrays.asList(testUserEntities));
+        when(customerService.getById(0L)).thenReturn(testUserEntity);
+        when(customerService.create(testUserEntity)).thenReturn(testUserEntity);
+        when(customerService.update(testUserEntity)).thenReturn(testUserEntity);
     }
 
     @Test
     public void getAllTest() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(CustomerController.ROOT))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(AuthController.ROOT))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
-        assertEquals(mapper.writeValueAsString(testCustomers), result.getResponse().getContentAsString());
+        assertEquals(mapper.writeValueAsString(testUserEntities), result.getResponse().getContentAsString());
     }
 
     @Test
     public void getByIdTest() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(CustomerController.ROOT + "/0"))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(AuthController.ROOT + "/0"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
-        assertEquals(mapper.writeValueAsString(testCustomer), result.getResponse().getContentAsString());
+        assertEquals(mapper.writeValueAsString(testUserEntity), result.getResponse().getContentAsString());
     }
 
     @Test
     public void createTest() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(CustomerController.ROOT)
-                .content(mapper.writeValueAsString(testCustomer))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(AuthController.ROOT)
+                .content(mapper.writeValueAsString(testUserEntity))
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
-        assertEquals(mapper.writeValueAsString(testCustomer), result.getResponse().getContentAsString());
+        assertEquals(mapper.writeValueAsString(testUserEntity), result.getResponse().getContentAsString());
     }
 
     @Test
     public void deleteTest() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete(CustomerController.ROOT + "/0"))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete(AuthController.ROOT + "/0"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
     }
@@ -92,11 +90,11 @@ public class CustomerControllerTest {
     @Test
     public void updateTest() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put(CustomerController.ROOT)
-                .content(mapper.writeValueAsString(testCustomer))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put(AuthController.ROOT)
+                .content(mapper.writeValueAsString(testUserEntity))
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
-        assertEquals(mapper.writeValueAsString(testCustomer), result.getResponse().getContentAsString());
+        assertEquals(mapper.writeValueAsString(testUserEntity), result.getResponse().getContentAsString());
     }
 }

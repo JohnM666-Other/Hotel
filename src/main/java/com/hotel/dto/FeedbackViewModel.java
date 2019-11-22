@@ -1,6 +1,6 @@
 package com.hotel.dto;
 
-import com.hotel.entities.Customer;
+import com.hotel.entities.UserEntity;
 import com.hotel.entities.Hotel;
 
 import java.util.Date;
@@ -9,7 +9,7 @@ import java.util.Objects;
 public class FeedbackViewModel {
     private Long id;
     private Hotel hotel;
-    private Customer customer;
+    private UserEntity userEntity;
     private Date visitDate;
     private Integer score;
     private String text;
@@ -19,10 +19,10 @@ public class FeedbackViewModel {
 
     }
 
-    public FeedbackViewModel(Long id, Hotel hotel, Customer customer, Date visitDate, Integer score, String text, Integer customerAge) {
+    public FeedbackViewModel(Long id, Hotel hotel, UserEntity userEntity, Date visitDate, Integer score, String text, Integer customerAge) {
         this.id = id;
         this.hotel = hotel;
-        this.customer = customer;
+        this.userEntity = userEntity;
         this.visitDate = visitDate;
         this.score = score;
         this.text = text;
@@ -45,12 +45,12 @@ public class FeedbackViewModel {
         this.hotel = hotel;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public UserEntity getUserEntity() {
+        return userEntity;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     public Date getVisitDate() {
@@ -92,7 +92,7 @@ public class FeedbackViewModel {
         FeedbackViewModel viewModel = (FeedbackViewModel) o;
         return Objects.equals(id, viewModel.id) &&
                 Objects.equals(hotel, viewModel.hotel) &&
-                Objects.equals(customer, viewModel.customer) &&
+                Objects.equals(userEntity, viewModel.userEntity) &&
                 Objects.equals(visitDate, viewModel.visitDate) &&
                 Objects.equals(score, viewModel.score) &&
                 Objects.equals(text, viewModel.text) &&
@@ -101,7 +101,7 @@ public class FeedbackViewModel {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, hotel, customer, visitDate, score, text, customerAge);
+        return Objects.hash(id, hotel, userEntity, visitDate, score, text, customerAge);
     }
 
     @Override
@@ -109,7 +109,7 @@ public class FeedbackViewModel {
         return "FeedbackViewModel{" +
                 "id=" + id +
                 ", hotel=" + hotel +
-                ", customer=" + customer +
+                ", userEntity=" + userEntity +
                 ", visitDate=" + visitDate +
                 ", score=" + score +
                 ", text='" + text + '\'' +
