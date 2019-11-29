@@ -6,6 +6,8 @@ import com.hotel.entities.Hotel;
 import com.hotel.repositories.HotelRepository;
 import com.hotel.repositories.HotelSearchManager;
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,10 +72,10 @@ public class HotelService {
             hotel.getUrl());
     }
 
-    public List<HotelViewModel> getHotelsInfo() {
+    public List<HotelViewModel> getHotelsInfo(List<Hotel> src) {
         List<HotelViewModel> hotels = new ArrayList<>();
 
-        for(Hotel hotel : getAll()) {
+        for(Hotel hotel : src) {
             float totalScore = 0.0f;
 
             for(Feedback f : hotel.getFeedbacks()) {
@@ -82,7 +84,7 @@ public class HotelService {
 
             float avgScore =
                     !hotel.getFeedbacks().isEmpty() ? (totalScore / hotel.getFeedbacks().size()) :
-                    0.0f;
+                            0.0f;
 
             HotelViewModel model = new HotelViewModel(
                     hotel.getId(),
@@ -99,7 +101,11 @@ public class HotelService {
         return hotels;
     }
 
-    public List<Hotel> searchHotels(String text) {
-        return new ArrayList<Hotel>();
+    public List<HotelViewModel> getHotelsInfo() {
+        return getHotelsInfo(getAll());
+    }
+
+    public List<Hotel> searchHotels(String text, Integer minStars, Integer pageIndex, Integer pageSize) {
+        return hotelRepository.searchHotels(text, minStars == null ? 0 : minStars, PageRequest.of(pageIndex, pageSize));
     }
 }

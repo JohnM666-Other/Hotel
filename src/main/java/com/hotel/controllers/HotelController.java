@@ -6,9 +6,11 @@ import com.hotel.services.HotelService;
 import org.hibernate.ObjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -43,25 +45,10 @@ public class HotelController {
         return hotelService.create(hotel);
     }
 
-    @PostMapping("/update")
-    public void update(HttpServletResponse http,
-            @RequestParam Integer id,
-            @RequestParam String name,
-            @RequestParam String description,
-            @RequestParam String country,
-            @RequestParam String city,
-            @RequestParam String url,
-            @RequestParam Integer score) throws IOException {
-        Hotel hotel = hotelService.getById((long)id);
-        hotel.setName(name);
-        hotel.setDescription(description);
-        hotel.setCountry(country);
-        hotel.setCity(city);
-        hotel.setUrl(url);
-        hotel.setScore(score);
-        hotelService.update(hotel);
-        logger.info("Update hotel {}", hotel);
-        http.sendRedirect("/hotels");
+    @PutMapping
+    public Hotel update(@RequestBody Hotel hotel) {
+        logger.info("Update hotel with {}", hotel);
+        return hotelService.update(hotel);
     }
 
     @DeleteMapping("/{id}")
@@ -70,9 +57,57 @@ public class HotelController {
         hotelService.deleteById(id);
     }
 
-    @GetMapping("/search")
-    public List<Hotel> search(@RequestParam(value = "text", required = true) String text) {
-        logger.info("Search ");
-        return hotelService.searchHotels(text);
+    @GetMapping("/search/{index}")
+    public List<Hotel> search(
+            @PathVariable("index") Integer index,
+            @RequestParam(value = "text", required = true) String text,
+            @RequestParam(value = "minStars", required = false) Integer stars) {
+        logger.info("Search: {}", text);
+        return hotelService.searchHotels(text, stars == null ? 0 : stars, index, 5);
+    }
+
+    @PostMapping("/edit")
+    @Secured("ROLE_ADMIN")
+    public void edit(HttpServletResponse http,
+                     @RequestParam Integer id,
+                     @RequestParam String name,
+                     @RequestParam String description,
+                     @RequestParam String country,
+                     @RequestParam String city,
+                     @RequestParam String url,
+                     @RequestParam Integer score) throws IOException {
+        Hotel hotel = null;
+
+        try {
+            hotel = hotelService.getById((long)id);
+            hotel.setName(name);
+            hotel.setDescription(description);
+            hotel.setCountry(country);
+            hotel.setCity(city);
+            hotel.setUrl(url);
+            hotel.setScore(score);
+            hotel = hotelService.update(hotel);
+        } catch (Exception e) {
+            hotel = new Hotel();
+            hotel.setName(name);
+            hotel.setDescription(description);
+            hotel.setCountry(country);
+            hotel.setCity(city);
+            hotel.setUrl(url);
+            hotel.setScore(score);
+            hotel = hotelService.create(hotel);
+        }
+
+        logger.info("Update hotel {}", hotel);
+        http.sendRedirect("/admin-hotels");
+    }
+
+    @GetMapping("/user-delete/{id}")
+    @Secured("ROLE_ADMIN")
+    public void userDelete(HttpServletResponse response, @PathVariable("id") Long id) throws IOException {
+        hotelService.deleteById(id);
+        response.sendRedirect("/admin-hotels");
+        logger.info("/user-delete/{}", id);
+
     }
 }

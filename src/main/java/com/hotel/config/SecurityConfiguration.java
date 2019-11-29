@@ -17,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -46,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login*").permitAll()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().defaultSuccessUrl("/hotels")
+                .formLogin().loginPage("/login").defaultSuccessUrl("/hotels")
                 .and()
                 .logout().logoutUrl("/logout").deleteCookies("JSESSIONID");
     }

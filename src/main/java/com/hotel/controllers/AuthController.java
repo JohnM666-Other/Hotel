@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,39 +28,11 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @PostMapping("/signup")
-    public void signup(HttpServletResponse http,
-                     @RequestParam String email,
-                     @RequestParam String firstname,
-                     @RequestParam String lastname,
-                     @RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date birthdate,
-                     @RequestParam Character sex,
-                     @RequestParam String password) throws IOException {
-        UserEntity user = new UserEntity(firstname, lastname, email, birthdate, sex, new BCryptPasswordEncoder().encode(password));
-        userService.create(user);
-        logger.info("Sign up: {}", user);
-        http.sendRedirect("/hotels");
-    }
-
     @GetMapping("/delete")
     @Secured("ROLE_ADMIN")
     public void delete(@RequestParam String email) {
         userService.deleteByEmail(email);
         logger.info("Removed user with email {}", email);
-    }
-
-    @PostMapping("/profile-edit")
-    @Secured("ROLE_USER")
-    public void edit(HttpServletResponse http,
-                         @RequestParam String email,
-                         @RequestParam String firstname,
-                         @RequestParam String lastname,
-                         @RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date birthdate,
-                         @RequestParam Character sex,
-                         @RequestParam String password) throws IOException {
-        userService.update(new UserEntity(firstname, lastname, email, birthdate, sex, new BCryptPasswordEncoder().encode(password)));
-        logger.info("Edit user with email {}", email);
-        http.sendRedirect("/hotels");
     }
 
     @GetMapping
@@ -92,5 +65,45 @@ public class AuthController {
     public void deleteById(@PathVariable("id") Long id) {
         userService.deleteById(id);
         logger.info("deleted user with id {}", id);
+    }
+
+    @PostMapping("/signup")
+    public void signup(HttpServletResponse http,
+                       @RequestParam String email,
+                       @RequestParam String firstname,
+                       @RequestParam String lastname,
+                       @RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date birthdate,
+                       @RequestParam Character sex,
+                       @RequestParam String password) throws IOException {
+        UserEntity user = new UserEntity(firstname, lastname, email, birthdate, sex, new BCryptPasswordEncoder().encode(password));
+        userService.create(user);
+        logger.info("Sign up: {}", user);
+        http.sendRedirect("/hotels");
+    }
+
+    @PostMapping("/profile-edit")
+    @Secured("ROLE_USER")
+    public void edit(HttpServletResponse http,
+                     @RequestParam String email,
+                     @RequestParam String firstname,
+                     @RequestParam String lastname,
+                     @RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date birthdate,
+                     @RequestParam Character sex) throws IOException {
+        UserEntity user = userService.getByEmail(email);
+
+        if(!user.getEmail().equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
+            http.sendError(400);
+            return;
+        }
+
+        user.setFirstname(firstname);
+        user.setSecondname(lastname);
+        user.setEmail(email);
+        user.setBirthDate(birthdate);
+        user.setSex(sex);
+
+        userService.update(user);
+        logger.info("Edit user with email {}", email);
+        http.sendRedirect("/hotels");
     }
 }

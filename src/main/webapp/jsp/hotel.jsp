@@ -8,7 +8,7 @@
         <title>Getting Started: Serving Web Content</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="../css/index.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/app.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="../js/index.js"></script>
@@ -19,7 +19,7 @@
         <h1 class="text-light text-center">Hotel &laquo;${hotel.name}&raquo;</h1>
         <div class="container">
             <div class="my-2 light-background rounded-p">
-                <img src="../res/hotel.png" class="float-left img-invert" alt="hotel icon">
+                <img src="/res/hotel.png" class="float-left img-invert" alt="hotel icon">
                 <div class="p-2">
                     <p>
                         <c:forEach begin="1" end="${hotel.stars}">
@@ -50,6 +50,16 @@
                                             ${item.userEntity.secondname}
                                         (Age: ${item.customerAge})
                                         <fmt:formatDate value="${item.visitDate}" pattern="yyyy-MM-dd"/>
+                                        <c:choose>
+                                            <c:when test="${isAdmin || item.userEntity.email == username}">
+                                                <a href="/api/feedbacks/user-delete/${hotel.id}/${item.id}">Delete</a>
+                                            </c:when>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="${item.userEntity.email == username}">
+                                                <a href="/hotel/${hotel.id}/${item.id}">Edit</a>
+                                            </c:when>
+                                        </c:choose>
                                     </h6>
                                     <p class="text-light">${item.text}</p>
                                 </div>
@@ -73,15 +83,20 @@
                         <form class="p-4 border" method="POST" action="/api/feedbacks/send">
                             <div class="form-group">
                                 <label class="text-light">Score</label>
-                                <input type="text" class="form-control" id="score" name="score"/>
+                                <input type="text" value="${edit_score}" class="form-control" id="score" name="score"/>
                             </div>
                             <div class="form-group">
                                 <label class="text-light">Message</label>
-                                <textarea class="form-control" id="message" name="message"></textarea>
+                                <textarea class="form-control" id="message" name="message">${edit_message}</textarea>
                             </div>
                             <div class="d-none">
                                 <input name="hotel" value="${hotel.id}"/>
                                 <input name="username" value="${username}"/>
+                                <c:choose>
+                                    <c:when test="${not empty edit_id}">
+                                        <input name="feedback" value="${edit_id}"/>
+                                    </c:when>
+                                </c:choose>
                             </div>
                             <div class="form-group">
                                 <button class="w-100 btn btn-primary" type="submit">Send</button>

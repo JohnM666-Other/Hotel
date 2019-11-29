@@ -15,35 +15,19 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1 class="text-light text-center text">Sign up</h1>
+<h1 class="text-light text-center text">Please sign in</h1>
 <div class="container w-25">
-    <form class="m-2" action="/api/user/signup" method="POST">
+    <form class="m-2" action="/login" method="POST">
         <div class="form-group">
             <label class="text-light">Email </label>
-            <input required placeholder="Email" class="form-control" type="text" id="email" name="email"/>
-        </div>
-        <div class="form-group">
-            <label class="text-light">First name</label>
-            <input required placeholder="First name" class="form-control" type="text" id="firstname" name="firstname"/>
-        </div>
-        <div class="form-group">
-            <label class="text-light">Last name</label>
-            <input required placeholder="Last name" class="form-control" type="text" id="lastname" name="lastname"/>
-        </div>
-        <div class="form-group">
-            <label class="text-light">Birth date</label>
-            <input required placeholder="Birth date" class="form-control" type="text" id="birthdate" name="birthdate"/>
-        </div>
-        <div class="form-group d-none">
-            <label class="text-light">Sex</label>
-            <input required value="F" placeholder="Sex" class="form-control" type="text" id="sex" name="sex"/>
+            <input required placeholder="Email" class="form-control" type="text" id="username" name="username"/>
         </div>
         <div class="form-group">
             <label class="text-light">Password</label>
-            <input required placeholder="New password" class="form-control" type="password" id="password" name="password"/>
+            <input required placeholder="Password" class="form-control" type="password" id="password" name="password"/>
         </div>
         <div class="form-group">
-            <button class="form-control btn btn-primary" type="submit">Sign up</button>
+            <button class="form-control btn btn-primary" type="submit">Sign in</button>
         </div>
     </form>
 </div>
